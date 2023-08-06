@@ -7,7 +7,7 @@ const Form = () => {
     const myRef = useRef(0);
 
     useEffect(() => {
-        console.log(myRef.current++);
+        myRef.current = text;
     })
 
     // console.log(text);
@@ -37,7 +37,7 @@ const Form = () => {
                         Textarea
                     </label>
                     <textarea
-                        onChange={() => myRef.current++}  
+                        value={myRef.current}  
                         className="form-control" 
                         id="exampleFormControlInput"
                         placeholder="Example textarea"
