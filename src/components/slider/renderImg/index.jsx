@@ -9,9 +9,7 @@ const RenderImg = ({getSomeImages}) => {
     }, [getSomeImages])
     return (
         <>
-          {images.map((url, i) => {
-            <img className="d-block w-100" src={url} alt="slide" key={i}/>
-          })}  
+          {images.map((url, i) => <img className="d-block w-100" src={url} alt="slide" key={i}/>)}  
         </>
     );
 };
