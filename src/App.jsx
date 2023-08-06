@@ -1,11 +1,13 @@
 import './App.css';
-import Slider from './components/slider';
+import Form from './components/form';
+// import Slider from './components/slider';
 
 
 
 function App() {
   return (
-        <Slider/>
+        // <Slider/>
+        <Form/>
   );
 }
 
