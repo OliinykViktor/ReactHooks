@@ -1,5 +1,6 @@
 import './App.css';
-import Form from './components/form';
+// import Form from './components/form';
+import TestComponent from './components/testComponent';
 // import Slider from './components/slider';
 
 
@@ -7,7 +8,8 @@ import Form from './components/form';
 function App() {
   return (
         // <Slider/>
-        <Form/>
+        // <Form/>
+        <TestComponent/>
   );
 }
 
