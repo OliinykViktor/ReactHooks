@@ -1,4 +1,6 @@
-import React, { ChangeEvent, useMemo, useState, useDeferredValue} from "react";
+import React, { ChangeEvent, useMemo, useState, useTransition } from "react";
+
+import { ColorRing } from  'react-loader-spinner'
 
 import {data} from '../../generated'
 
@@ -10,14 +12,15 @@ interface Post {
 const Posts:React.FC = () => {
     const [text, setText] = useState<string>('');
     const [posts, setPost] = useState<Post[]>(data);
-    const deferredValue = useDeferredValue<string>(text);
+    const [isPending, startTransition] = useTransition();
+
 
     const filteredPost = useMemo(() => {
-        return posts.filter((item) => item.name.toLowerCase().includes(deferredValue));
-    }, [deferredValue]);
+        return posts.filter((item) => item.name.toLowerCase().includes(text));
+    }, [text]);
 
     const onValueChange = (e: ChangeEvent<HTMLInputElement>):void => {
-        setText(e.target.value)
+        startTransition(():void => setText(e.target.value))
     }
 
     const style: React.CSSProperties={
@@ -26,6 +29,16 @@ const Posts:React.FC = () => {
         alignItems: 'center',
         marginTop: '40px',
     }
+
+    const colorRing = <ColorRing
+                        visible={true}
+                        height="80"
+                        width="80"
+                        ariaLabel="blocks-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="blocks-wrapper"
+                        colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                    />;
     return (
         <div style={style}>
             <input type="text" value={text} onChange={onValueChange} /> 
@@ -33,11 +46,11 @@ const Posts:React.FC = () => {
             <hr />
 
             <div >
-                {filteredPost.map(post =>(
+                {isPending? colorRing : filteredPost.map(post =>(
                     <div style={{marginTop:'20px', background:'white', borderRadius: '7px'}} key={post._id}>
                         <h4>{post.name}</h4>
                     </div>
-                ))}    
+                ))}
             </div>  
         </div>
     );
